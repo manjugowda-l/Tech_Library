@@ -785,6 +785,14 @@ const matchesSearch = (
       .includes(word)
   );
 };
+
+const scrollToSection = (sectionId: string) => {
+  const section = document.getElementById(sectionId);
+  if (section) {
+    section.scrollIntoView({ behavior: "smooth" });
+  }
+};
+
   return (
     <div
       className="min-h-screen text-slate-200"
@@ -821,34 +829,57 @@ const matchesSearch = (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 gap-4">
             {/* Logo */}
-            <div className="flex items-center gap-2.5 shrink-0">
-              <div
-                className="w-8 h-8 rounded-lg flex items-center justify-center"
-                style={{ background: "linear-gradient(135deg, #4f46e5, #7c3aed)" }}
-              >
-                <BookOpen size={15} className="text-white" />
-              </div>
-              <div className="leading-none whitespace-nowrap">
-                <span className="font-extrabold text-[15px] tracking-tight text-white">Manju</span>
-                <span
-                  className="font-extrabold text-[15px] tracking-tight"
-                  style={{ background: "linear-gradient(90deg,#818cf8,#a78bfa)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
-                >
-                  {" "}Tech Notes
-                </span>
-              </div>
-            </div>
+            {/* Logo */}
+<button
+  type="button"
+  onClick={() =>
+    document.getElementById("about")?.scrollIntoView({
+      behavior: "smooth",
+    })
+  }
+  className="flex items-center gap-2.5 shrink-0 cursor-pointer transition-all duration-200 hover:opacity-80"
+>
+  <div
+    className="w-8 h-8 rounded-lg flex items-center justify-center"
+    style={{
+      background: "linear-gradient(135deg, #4f46e5, #7c3aed)",
+    }}
+  >
+    <BookOpen size={15} className="text-white" />
+  </div>
+
+  <div className="leading-none whitespace-nowrap">
+    <span className="font-extrabold text-[15px] tracking-tight text-white">
+      Manju
+    </span>
+
+    <span
+      className="font-extrabold text-[15px] tracking-tight ml-1"
+      style={{
+        background: "linear-gradient(90deg,#818cf8,#a78bfa)",
+        WebkitBackgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+      }}
+    >
+      Gowda L
+    </span>
+  </div>
+</button>
 
             {/* Desktop nav */}
             <nav className="hidden lg:flex items-center gap-0.5">
-              {navLinks.map((link) => (
-                <a
+              {[
+                { label: "Categories", target: "categories" },
+                { label: "Roadmaps", target: "roadmaps" },
+              ].map((link) => (
+                <button
                   key={link.label}
-                  href={link.href}
-                  className="px-3 py-1.5 rounded-lg text-[13px] text-slate-400 hover:text-white hover:bg-white/5 transition-all font-medium"
+                  type="button"
+                  onClick={() => scrollToSection(link.target)}
+                  className="px-3 py-1.5 rounded-lg text-[13px] text-slate-400 hover:text-white hover:bg-white/5 transition-all duration-200 font-medium cursor-pointer"
                 >
                   {link.label}
-                </a>
+                </button>
               ))}
             </nav>
 
@@ -1486,7 +1517,7 @@ ${
 
 
         {/* ── About the Author ── */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <section id="about" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="max-w-3xl mx-auto">
             <div
               className="relative rounded-3xl p-8 md:p-12 overflow-hidden"
@@ -1655,91 +1686,309 @@ ${
       </main>
 
       {/* ── Footer ── */}
-      <footer style={{ borderTop: "1px solid rgba(255,255,255,0.05)", background: "rgba(5,8,15,0.9)" }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-10">
-            {/* Brand column */}
-            <div className="col-span-2 flex flex-col gap-4">
-              <div className="flex items-center gap-2.5">
-                <div
-                  className="w-8 h-8 rounded-lg flex items-center justify-center"
-                  style={{ background: "linear-gradient(135deg, #4f46e5, #7c3aed)" }}
-                >
-                  <BookOpen size={14} className="text-white" />
-                </div>
-                <span className="font-extrabold text-[15px] tracking-tight">
-                  <span className="text-white">Manju</span>
-                  <span
-                    style={{
-                      background: "linear-gradient(90deg,#818cf8,#a78bfa)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                    }}
-                  > Tech Notes</span>
-                </span>
-              </div>
-              <p className="text-[13px] text-slate-600 leading-relaxed max-w-xs" style={{ fontFamily: "'Inter', sans-serif" }}>
-                A free, open knowledge library for developers — covering Linux, AWS, DSA, Full Stack, and Interview Prep.
-              </p>
-              <div className="flex gap-2">
-                {[Github, Twitter, Linkedin].map((Icon, i) => (
-                  <a
-                    key={i}
-                    href="#"
-                    className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-600 hover:text-white transition-all hover:bg-white/10"
-                    style={{ border: "1px solid rgba(255,255,255,0.07)" }}
-                  >
-                    <Icon size={13} />
-                  </a>
-                ))}
-              </div>
-            </div>
+      {/* ── Footer ── */}
+<footer
+  style={{
+    borderTop: "1px solid rgba(255,255,255,0.05)",
+    background: "rgba(5,8,15,0.9)",
+  }}
+>
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
-            {[
-              {
-                heading: "Topics",
-                links: ["Linux", "AWS", "DSA", "Full Stack", "Projects", "Interview Prep"],
-              },
-              {
-                heading: "Resources",
-                links: ["Roadmaps", "Cheat Sheets", "PDF Downloads", "Practice Sets"],
-              },
-              {
-                heading: "About",
-                links: ["About Manju", "Newsletter", "RSS Feed", "GitHub"],
-              },
-            ].map((col) => (
-              <div key={col.heading} className="flex flex-col gap-3">
-                <p className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-widest">{col.heading}</p>
-                <ul className="flex flex-col gap-2">
-                  {col.links.map((l) => (
-                    <li key={l}>
-                      <a
-                        href="#"
-                        className="text-[13px] text-slate-600 hover:text-slate-200 transition-colors"
-                        style={{ fontFamily: "'Inter', sans-serif" }}
-                      >
-                        {l}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+    <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-10">
+
+      {/* Brand */}
+      <div className="col-span-2 flex flex-col gap-4">
+
+        <div className="flex items-center gap-2.5">
 
           <div
-            className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[12px] text-slate-700"
-            style={{ borderTop: "1px solid rgba(255,255,255,0.05)", fontFamily: "'Inter', sans-serif" }}
+            className="w-8 h-8 rounded-lg flex items-center justify-center"
+            style={{
+              background:
+                "linear-gradient(135deg,#4f46e5,#7c3aed)",
+            }}
           >
-            <span>© 2026 Manju Tech Notes. Free to read, forever.</span>
-            <span className="font-mono flex items-center gap-1.5">
-              <Cpu size={11} className="text-indigo-600" />
-              Built by Manju — ECE student, aspiring engineer
-            </span>
+            <BookOpen
+              size={14}
+              className="text-white"
+            />
           </div>
+
+          <span className="font-extrabold text-[15px] tracking-tight">
+
+            <span className="text-white">
+              Manju
+            </span>
+
+            <span
+              style={{
+                background:
+                  "linear-gradient(90deg,#818cf8,#a78bfa)",
+                WebkitBackgroundClip:
+                  "text",
+                WebkitTextFillColor:
+                  "transparent",
+              }}
+            >
+               {" "}Gowda L
+            </span>
+
+            <span className="ml-2 text-[10px] font-mono text-slate-500">
+              v1.0
+            </span>
+
+          </span>
+
         </div>
-      </footer>
+
+        <p
+          className="text-[13px] text-slate-600 leading-relaxed max-w-xs"
+          style={{
+            fontFamily:
+              "'Inter', sans-serif",
+          }}
+        >
+          A personal knowledge hub where I
+          share practical notes, roadmaps,
+          and resources on Linux, Cloud,
+          DevOps, DSA, and Full-Stack
+          Development — making learning
+          simpler, structured, and
+          accessible for everyone.
+        </p>
+
+        {/* Social */}
+        <div className="flex gap-2">
+
+          {[
+            {
+              Icon: Github,
+              link:
+                "https://github.com/manjugowda-l",
+            },
+            {
+              Icon: Mail,
+              link:
+                "mailto:manjugowda200523@gmail.com",
+            },
+            {
+              Icon: Linkedin,
+              link:
+                "https://linkedin.com/in/manjugowda-l",
+            },
+          ].map(
+            ({ Icon, link }, i) => (
+              <a
+                key={i}
+                href={link}
+                target="_blank"
+                rel="noreferrer"
+                className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-600 hover:text-white transition-all hover:bg-white/10"
+                style={{
+                  border:
+                    "1px solid rgba(255,255,255,0.07)",
+                }}
+              >
+                <Icon size={13} />
+              </a>
+            )
+          )}
+
+        </div>
+
+      </div>
+
+      {/* Topics */}
+
+      <div className="flex flex-col gap-3">
+
+        <p className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-widest">
+          Topics
+        </p>
+
+        <ul className="flex flex-col gap-2">
+
+          {topics.map((topic: any) => (
+
+            <li key={topic._id}>
+
+              <a
+                href={`#category-${topic.name}`}
+                className="text-[13px] text-slate-600 hover:text-slate-200 transition-colors"
+                style={{
+                  fontFamily:
+                    "'Inter', sans-serif",
+                }}
+              >
+                {topic.name}
+              </a>
+
+            </li>
+
+          ))}
+
+        </ul>
+
+      </div>
+
+      {/* Resources */}
+
+      <div className="flex flex-col gap-3">
+
+        <p className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-widest">
+          Resources
+        </p>
+
+        <ul className="flex flex-col gap-2">
+
+          <li>
+            <a
+              href="#roadmaps"
+              className="text-[13px] text-slate-600 hover:text-slate-200 transition-colors"
+            >
+              Roadmaps
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="#categories"
+              className="text-[13px] text-slate-600 hover:text-slate-200 transition-colors"
+            >
+              Categories
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="#categories"
+              className="text-[13px] text-slate-600 hover:text-slate-200 transition-colors"
+            >
+              Latest Notes
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="#"
+              onClick={() =>
+                document
+                  .querySelector("input")
+                  ?.focus()
+              }
+              className="text-[13px] text-slate-600 hover:text-slate-200 transition-colors"
+            >
+              Search Notes
+            </a>
+          </li>
+
+        </ul>
+
+      </div>
+
+      {/* Connect */}
+
+      <div className="flex flex-col gap-3">
+
+        <p className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-widest">
+          Connect
+        </p>
+
+        <ul className="flex flex-col gap-2">
+
+          <li>
+            <a
+              href="#about"
+              className="text-[13px] text-slate-600 hover:text-slate-200 transition-colors"
+            >
+              About
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="https://github.com/manjugowda-l"
+              target="_blank"
+              className="text-[13px] text-slate-600 hover:text-slate-200 transition-colors"
+            >
+              GitHub
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="https://linkedin.com/in/manjugowda-l"
+              target="_blank"
+              className="text-[13px] text-slate-600 hover:text-slate-200 transition-colors"
+            >
+              LinkedIn
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=manjugowda200523@gmail.com"
+             
+              className="text-[13px] text-slate-600 hover:text-slate-200 transition-colors"
+            >
+              Email
+            </a>
+          </li>
+
+        </ul>
+
+      </div>
+
+    </div>
+
+    {/* Bottom */}
+
+    <div
+      className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[12px] text-slate-700"
+      style={{
+        borderTop:
+          "1px solid rgba(255,255,255,0.05)",
+        fontFamily:
+          "'Inter', sans-serif",
+      }}
+    >
+
+      <span
+  className="text-slate-500"
+  style={{ fontFamily: "'Inter', sans-serif" }}
+>
+  <span
+    style={{
+      background: "linear-gradient(90deg,#818cf8,#a78bfa)",
+      WebkitBackgroundClip: "text",
+      WebkitTextFillColor: "transparent",
+      fontWeight: 700,
+    }}
+  >
+    © 2026 Manju Gowda L
+  </span>{" "}
+  Open-source learning. Free forever.
+</span>
+
+      <span className="font-mono flex items-center gap-1.5">
+
+        <Cpu
+          size={11}
+          className="text-indigo-600"
+        />
+
+        Designed & Developed by
+        <span className="text-slate-400">
+          Manju L
+        </span>
+
+      </span>
+
+    </div>
+
+  </div>
+</footer>
     </div>
   );
 }

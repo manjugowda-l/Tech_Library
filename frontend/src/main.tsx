@@ -23,16 +23,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         path="/roadmap/:id"
         element={<RoadmapPage />}
       />
-
       <Route
-  path="/roadmap/:id"
-  element={<RoadmapPage />}
-/>
-
-<Route
-  path="/note/:id"
-  element={<NotePage />}
-/>
+        path="/note/:id"
+        element={<NotePage />}
+      />
     </Routes>
   </BrowserRouter>
 );

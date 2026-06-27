@@ -1,10 +1,14 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 const notesRoutes = require("./routes/notes");
 const categoriesRoutes = require("./routes/categories");
 const roadmapsRoutes = require("./routes/roadmaps");
+const adminRoutes = require("./routes/admin");
 
 const app = express();
 const path = require("path");
@@ -17,14 +21,17 @@ app.use(
     path.join(__dirname, "uploads")
   )
 );
+require("dotenv").config();
 
-mongoose.connect("mongodb://127.0.0.1:27017/technotes")
+mongoose.connect(process.env.MONGODB_URI)
+
 .then(() => console.log("MongoDB Connected"))
 .catch(err => console.log(err));
 
 app.use("/notes", notesRoutes);
 app.use("/categories", categoriesRoutes);
 app.use("/roadmaps", roadmapsRoutes);
+app.use("/admin", adminRoutes);
 
 app.listen(5000, () => {
     console.log("Server running on port 5000");
