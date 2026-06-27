@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import api from "../config/api";
 
 export default function RoadmapPage() {
   const { id } = useParams();
@@ -9,8 +9,8 @@ export default function RoadmapPage() {
   const [completedSteps, setCompletedSteps] =
   useState<string[]>([]);
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/roadmaps/${id}`)
+    api
+      .get(`/roadmaps/${id}`)
       .then((res) => setRoadmap(res.data));
 
       const saved =

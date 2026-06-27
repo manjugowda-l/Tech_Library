@@ -1,4 +1,5 @@
 import { ArrowRight, FileText } from "lucide-react";
+import { API_BASE_URL } from "../config/api";
 
 export default function NoteCard({ note }: { note: any }) {
   return (
@@ -12,7 +13,7 @@ export default function NoteCard({ note }: { note: any }) {
       }}
       onClick={() =>
         window.open(
-          `http://localhost:5000/uploads/pdfs/${note.pdfUrl}`,
+          `${API_BASE_URL}/uploads/pdfs/${note.pdfUrl}`,
           "_blank"
         )
       }
@@ -31,7 +32,7 @@ export default function NoteCard({ note }: { note: any }) {
       }}
     >
       <img
-        src={`http://localhost:5000/uploads/thumbnails/${note.thumbnail}`}
+        src={`${API_BASE_URL}/uploads/thumbnails/${note.thumbnail}`}
         alt={note.title}
         className="w-full h-56 object-cover"
       />

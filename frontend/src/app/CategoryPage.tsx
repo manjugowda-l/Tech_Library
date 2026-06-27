@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import NoteCard from "./NoteCard";
+import api from "../config/api";
 
 export default function CategoryPage() {
   const { name } = useParams();
@@ -9,8 +9,8 @@ export default function CategoryPage() {
   const [notes, setNotes] = useState<any[]>([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/notes")
+    api
+      .get("/notes")
       .then((res) => setNotes(res.data));
   }, []);
 

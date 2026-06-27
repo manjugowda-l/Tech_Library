@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import api, { API_BASE_URL } from "../config/api";
 
 export default function NotePage() {
 
@@ -11,8 +11,8 @@ export default function NotePage() {
 
   useEffect(() => {
 
-    axios
-      .get(`http://localhost:5000/notes/${id}`)
+    api
+      .get(`/notes/${id}`)
       .then((res) =>
         setNote(res.data)
       );
@@ -53,7 +53,7 @@ export default function NotePage() {
       </p>
 
       <img
-        src={`http://localhost:5000/uploads/thumbnails/${note.thumbnail}`}
+        src={`${API_BASE_URL}/uploads/thumbnails/${note.thumbnail}`}
         alt=""
         className="
           mt-10
@@ -67,7 +67,7 @@ export default function NotePage() {
       <button
         onClick={() =>
           window.open(
-            `http://localhost:5000/uploads/pdfs/${note.pdfUrl}`,
+            `${API_BASE_URL}/uploads/pdfs/${note.pdfUrl}`,
             "_blank"
           )
         }

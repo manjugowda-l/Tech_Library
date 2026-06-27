@@ -1,8 +1,8 @@
 import { FormEvent, useEffect, useState } from "react";
-import axios from "axios";
 import { Button } from "./components/ui/button";
 import { Input } from "./components/ui/input";
 import { Textarea } from "./components/ui/textarea";
+import api from "../config/api";
 
 export default function Admin() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -47,10 +47,13 @@ export default function Admin() {
     }
   }, [isAdmin]);
 
-  const api = axios.create({
-    baseURL: "http://localhost:5000",
-    headers: adminToken ? { Authorization: `Bearer ${adminToken}` } : undefined,
-  });
+  useEffect(() => {
+    if (adminToken) {
+      api.defaults.headers.common.Authorization = `Bearer ${adminToken}`;
+    } else {
+      delete api.defaults.headers.common.Authorization;
+    }
+  }, [adminToken]);
 
   const fetchCategories = async () => {
     const res = await api.get("/categories");

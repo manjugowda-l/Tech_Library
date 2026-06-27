@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../config/api";
 
 import {
   Search,
@@ -652,14 +653,14 @@ export default function App() {
   const totalRoadmaps = learningPaths.length;
   
   useEffect(() => {
-    axios.get("http://localhost:5000/categories")
+    api.get("/categories")
       .then(res => setTopics(res.data));
 
-    axios.get("http://localhost:5000/notes")
+    api.get("/notes")
       .then(res => setNotes(res.data));
 
-    axios
-  .get("http://localhost:5000/roadmaps")
+    api
+  .get("/roadmaps")
   .then((res) => {
 
   setLearningPaths(res.data);
