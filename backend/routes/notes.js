@@ -18,46 +18,39 @@ router.post(
     { name: "thumbnail", maxCount: 1 }
   ]),
   async (req, res) => {
+    try {
 
-    const {
-      title,
-      description,
-      category
-    } = req.body;
+      const { title, description, category } = req.body;
 
-    const pdfUrl =
-  req.files?.pdf?.[0]?.path ||
-  req.files?.pdf?.[0]?.secure_url ||
-  "";
+      console.log("BODY:", req.body);
+      console.log("FILES:", req.files);
 
-const thumbnail =
-  req.files?.thumbnail?.[0]?.path ||
-  req.files?.thumbnail?.[0]?.secure_url ||
-  "";
-    let existingCategory =
-      await Category.findOne({
-        name: category
+      const pdfUrl = req.files?.pdf?.[0]?.path || "";
+      const thumbnail = req.files?.thumbnail?.[0]?.path || "";
+
+      let existingCategory = await Category.findOne({ name: category });
+
+      if (!existingCategory) {
+        existingCategory = await Category.create({ name: category });
+      }
+
+      const note = await Note.create({
+        title,
+        description,
+        category,
+        pdfUrl,
+        thumbnail
       });
 
-    if (!existingCategory) {
-      existingCategory =
-        await Category.create({
-          name: category
-        });
+      res.json(note);
+
+    } catch (err) {
+      console.error("POST /notes ERROR:");
+      console.error(err);
+      res.status(500).json({ message: err.message });
     }
-
-    const note = await Note.create({
-      title,
-      description,
-      category,
-      pdfUrl,
-      thumbnail
-    });
-
-    res.json(note);
   }
 );
-
 router.get("/:id", async (req, res) => {
 
   const note =
