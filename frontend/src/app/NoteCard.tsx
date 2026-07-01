@@ -1,5 +1,4 @@
 import { ArrowRight, FileText } from "lucide-react";
-import { API_BASE_URL } from "../config/api";
 
 export default function NoteCard({ note }: { note: any }) {
   return (
@@ -11,12 +10,9 @@ export default function NoteCard({ note }: { note: any }) {
         backdropFilter: "blur(16px)",
         borderColor: "rgba(255,255,255,0.06)",
       }}
-      onClick={() =>
-        window.open(
-          `${API_BASE_URL}/uploads/pdfs/${note.pdfUrl}`,
-          "_blank"
-        )
-      }
+      onClick={() => {
+        window.open(note.pdfUrl, "_blank");
+      }}
       onMouseEnter={(e) => {
         const el = e.currentTarget as HTMLElement;
         el.style.boxShadow =
@@ -32,7 +28,7 @@ export default function NoteCard({ note }: { note: any }) {
       }}
     >
       <img
-        src={`${API_BASE_URL}/uploads/thumbnails/${note.thumbnail}`}
+        src={note.thumbnail}
         alt={note.title}
         className="w-full h-56 object-cover"
       />
@@ -57,9 +53,7 @@ export default function NoteCard({ note }: { note: any }) {
             <span className="font-mono">PDF Note</span>
           </div>
 
-          <button
-            className="flex items-center gap-1.5 text-xs font-semibold text-indigo-400 transition-all duration-200 group-hover:gap-2"
-          >
+          <button className="flex items-center gap-1.5 text-xs font-semibold text-indigo-400 transition-all duration-200 group-hover:gap-2">
             Open PDF <ArrowRight size={12} />
           </button>
         </div>

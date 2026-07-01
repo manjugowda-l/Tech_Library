@@ -53,7 +53,7 @@ export default function NotePage() {
       </p>
 
       <img
-        src={`${API_BASE_URL}/uploads/thumbnails/${note.thumbnail}`}
+        src={note.thumbnail}
         alt=""
         className="
           mt-10
@@ -65,12 +65,9 @@ export default function NotePage() {
       />
 
       <button
-        onClick={() =>
-          window.open(
-            `${API_BASE_URL}/uploads/pdfs/${note.pdfUrl}`,
-            "_blank"
-          )
-        }
+        onClick={() => {
+  window.open(note.pdfUrl, "_blank");
+}}
         className="
           mt-8
           px-8
