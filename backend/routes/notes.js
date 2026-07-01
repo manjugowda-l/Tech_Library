@@ -26,11 +26,14 @@ router.post(
     } = req.body;
 
     const pdfUrl =
-  req.files?.pdf?.[0]?.path || "";
+  req.files?.pdf?.[0]?.path ||
+  req.files?.pdf?.[0]?.secure_url ||
+  "";
 
 const thumbnail =
-  req.files?.thumbnail?.[0]?.path || "";
-
+  req.files?.thumbnail?.[0]?.path ||
+  req.files?.thumbnail?.[0]?.secure_url ||
+  "";
     let existingCategory =
       await Category.findOne({
         name: category
@@ -95,14 +98,12 @@ router.put(
       req.body.category;
 
     if (req.files?.pdf?.[0]) {
-      note.pdfUrl =
-  req.files.pdf[0].path;
-    }
+  note.pdfUrl = req.files.pdf[0].path || req.files.pdf[0].secure_url;
+}
 
-    if (req.files?.thumbnail?.[0]) {
-      note.thumbnail =
-  req.files.thumbnail[0].path;
-    }
+if (req.files?.thumbnail?.[0]) {
+  note.thumbnail = req.files.thumbnail[0].path || req.files.thumbnail[0].secure_url;
+}
 
     await note.save();
 
